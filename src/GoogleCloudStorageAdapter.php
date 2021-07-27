@@ -13,7 +13,7 @@ use League\Flysystem\AdapterInterface;
 use League\Flysystem\Config;
 use League\Flysystem\Util;
 
-class GoogleCloudStorageAdapterClass extends AbstractAdapter
+class GoogleCloudStorageAdapter extends AbstractAdapter
 {
     public const STORAGE_API_URI_DEFAULT = 'https://storage.googleapis.com';
 

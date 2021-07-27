@@ -17,7 +17,8 @@
     "require": {
         "php": "^8.0",
         "google/cloud-storage": "^1.24",
-        "league/flysystem": "^1.1"
+        "league/flysystem": "^1.1",
+        "mockery/mockery": "^1.4"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^3.0",
