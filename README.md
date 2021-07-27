@@ -7,7 +7,7 @@
 
 This package contains a [Google Cloud Storage](https://cloud.google.com/storage) driver for [Flysystem](https://flysystem.thephpleague.com/v2/docs/).
 
-## Notice
+### Notice
 
 This package is a fork from [superbalist/flysystem-google-cloud-storage](https://github.com/Superbalist/flysystem-google-cloud-storage). Changes include:
 
