@@ -199,7 +199,7 @@ class GoogleCloudStorageAdapter extends AbstractAdapter implements CanOverwriteF
 
         // We first delete the file, so that we can delete
         // the empty folder at the end.
-        uasort($objects, function ($a, $b) {
+        uasort($objects, function ($_a, $b) {
             return $b['type'] === 'file' ? 1 : -1;
         });
 
@@ -289,6 +289,14 @@ class GoogleCloudStorageAdapter extends AbstractAdapter implements CanOverwriteF
         return $data;
     }
 
+    /**
+     * @param string $directory
+     * @param bool $recursive
+     *
+     * @psalm-suppress TooManyTemplateParams
+     *
+     * @return array
+     */
     public function listContents($directory = '', $recursive = false): array
     {
         $directory = $this->applyPathPrefix($directory);
@@ -371,7 +379,7 @@ class GoogleCloudStorageAdapter extends AbstractAdapter implements CanOverwriteF
         $signedUrl = $object->signedUrl($expiration, $options);
 
         if ($this->getStorageApiUri() !== self::STORAGE_API_URI_DEFAULT) {
-            [$url, $params] = explode('?', $signedUrl, 2);
+            [, $params] = explode('?', $signedUrl, 2);
 
             $signedUrl = $this->getUrl($path) . '?' . $params;
         }
