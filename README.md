@@ -34,13 +34,9 @@ You can install the package via composer:
 composer require spatie/flysystem-google-cloud-storage
 ```
 
-## Usage
+## Authentication
 
-First time using Flysystem? Take a look at [Flysystem's docs](https://flysystem.thephpleague.com/v1/docs) first!
-
-### Authentication
-
-When possible, the credentials will be auto-loaded by the Google Cloud Client.
+Before you can use the package, you'll need to authenticate with Google. When possible, the credentials will be auto-loaded by the Google Cloud Client.
 
 1. The client will first look at the GOOGLE_APPLICATION_CREDENTIALS env var. You can use `putenv('GOOGLE_APPLICATION_CREDENTIALS=/path/to/service-account.json');` to set the location of your credentials file.
 2. The client will look for the credentials file at the following paths:
@@ -50,7 +46,9 @@ When possible, the credentials will be auto-loaded by the Google Cloud Client.
 
 Using this in a Kubernetes cluster? Take a look at [Workload Identity](https://cloud.google.com/kubernetes-engine/docs/how-to/workload-identity).
 
-### Example usage
+## Usage
+
+Here's an example that shows you have you can call the various functions to manipulate files on Google Cloud.
 
 ```php
 use Google\Cloud\Storage\StorageClient;
@@ -81,7 +79,7 @@ $filesystem->deleteDir('path/to/directory');
 
 See [https://flysystem.thephpleague.com/v1/docs/usage/filesystem-api/](https://flysystem.thephpleague.com/v1/docs/usage/filesystem-api/) for full list of available functionality
 
-### Custom storage URI
+### Using a custom storage URI
 
 You can configure this adapter to use a custom storage URI. Read more about configuring a custom domain for Google Cloud Storage [here](https://cloud.google.com/storage/docs/request-endpoints#cname).
 
