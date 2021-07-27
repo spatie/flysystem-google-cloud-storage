@@ -54,7 +54,7 @@ class GoogleCloudStorageAdapterClassTest extends Mockery\Adapter\Phpunit\Mockery
 
         $bucket->shouldReceive('info')
             ->andReturn([
-                'iamConfiguration' => ['uniformBucketLevelAccess' => ['enabled' => false]]
+                'iamConfiguration' => ['uniformBucketLevelAccess' => ['enabled' => false]],
             ]);
 
         $bucket->shouldReceive('upload')
@@ -63,7 +63,7 @@ class GoogleCloudStorageAdapterClassTest extends Mockery\Adapter\Phpunit\Mockery
                 [
                     'name' => 'prefix/file1.txt',
                     'predefinedAcl' => 'projectPrivate',
-                    'metadata' => ['contentType' => 'text/plain']
+                    'metadata' => ['contentType' => 'text/plain'],
                 ],
             ])
             ->once()
@@ -105,17 +105,17 @@ class GoogleCloudStorageAdapterClassTest extends Mockery\Adapter\Phpunit\Mockery
 
         $bucket->shouldReceive('info')
             ->andReturn([
-                'iamConfiguration' => ['uniformBucketLevelAccess' => ['enabled' => false]]
+                'iamConfiguration' => ['uniformBucketLevelAccess' => ['enabled' => false]],
             ]);
 
         $bucket->shouldReceive('info')
             ->andReturn([
-                'iamConfiguration' => ['uniformBucketLevelAccess' => ['enabled' => false]]
+                'iamConfiguration' => ['uniformBucketLevelAccess' => ['enabled' => false]],
             ]);
 
         $bucket->shouldReceive('info')
             ->andReturn([
-                'iamConfiguration' => ['uniformBucketLevelAccess' => ['enabled' => false]]
+                'iamConfiguration' => ['uniformBucketLevelAccess' => ['enabled' => false]],
             ]);
 
         $bucket->shouldReceive('upload')
@@ -124,7 +124,7 @@ class GoogleCloudStorageAdapterClassTest extends Mockery\Adapter\Phpunit\Mockery
                 [
                     'name' => 'prefix/file1.txt',
                     'predefinedAcl' => 'projectPrivate',
-                    'metadata' => ['contentType' => 'text/plain']
+                    'metadata' => ['contentType' => 'text/plain'],
                 ],
             ])
             ->once()
@@ -166,7 +166,7 @@ class GoogleCloudStorageAdapterClassTest extends Mockery\Adapter\Phpunit\Mockery
 
         $bucket->shouldReceive('info')
             ->andReturn([
-                'iamConfiguration' => ['uniformBucketLevelAccess' => ['enabled' => false]]
+                'iamConfiguration' => ['uniformBucketLevelAccess' => ['enabled' => false]],
             ]);
 
         $bucket->shouldReceive('upload')
@@ -175,7 +175,7 @@ class GoogleCloudStorageAdapterClassTest extends Mockery\Adapter\Phpunit\Mockery
                 [
                     'name' => 'prefix/file1.txt',
                     'predefinedAcl' => 'publicRead',
-                    'metadata' => ['contentType' => 'text/plain']
+                    'metadata' => ['contentType' => 'text/plain'],
                 ],
             ])
             ->once()
@@ -219,7 +219,7 @@ class GoogleCloudStorageAdapterClassTest extends Mockery\Adapter\Phpunit\Mockery
 
         $bucket->shouldReceive('info')
             ->andReturn([
-                'iamConfiguration' => ['uniformBucketLevelAccess' => ['enabled' => false]]
+                'iamConfiguration' => ['uniformBucketLevelAccess' => ['enabled' => false]],
             ]);
 
         $bucket->shouldReceive('upload')
@@ -228,7 +228,7 @@ class GoogleCloudStorageAdapterClassTest extends Mockery\Adapter\Phpunit\Mockery
                 [
                     'name' => 'prefix/file1.txt',
                     'predefinedAcl' => 'projectPrivate',
-                    'metadata' => ['contentType' => 'text/plain']
+                    'metadata' => ['contentType' => 'text/plain'],
                 ],
             ])
             ->once()
@@ -273,7 +273,7 @@ class GoogleCloudStorageAdapterClassTest extends Mockery\Adapter\Phpunit\Mockery
 
         $bucket->shouldReceive('info')
             ->andReturn([
-                'iamConfiguration' => ['uniformBucketLevelAccess' => ['enabled' => false]]
+                'iamConfiguration' => ['uniformBucketLevelAccess' => ['enabled' => false]],
             ]);
 
         $bucket->shouldReceive('upload')
@@ -285,7 +285,7 @@ class GoogleCloudStorageAdapterClassTest extends Mockery\Adapter\Phpunit\Mockery
                     'mimetype' => 'text/plain',
                     'metadata' => [
                         'contentType' => 'text/plain',
-                    ]
+                    ],
                 ],
             ])
             ->once()
@@ -469,7 +469,7 @@ class GoogleCloudStorageAdapterClassTest extends Mockery\Adapter\Phpunit\Mockery
 
         $bucket->shouldReceive('info')
             ->andReturn([
-                'iamConfiguration' => ['uniformBucketLevelAccess' => ['enabled' => false]]
+                'iamConfiguration' => ['uniformBucketLevelAccess' => ['enabled' => false]],
             ]);
 
         $bucket->shouldReceive('object')
@@ -527,7 +527,7 @@ class GoogleCloudStorageAdapterClassTest extends Mockery\Adapter\Phpunit\Mockery
 
         $bucket->shouldReceive('info')
             ->andReturn([
-                'iamConfiguration' => ['uniformBucketLevelAccess' => ['enabled' => false]]
+                'iamConfiguration' => ['uniformBucketLevelAccess' => ['enabled' => false]],
             ]);
 
         $bucket->shouldReceive('object')
@@ -630,7 +630,7 @@ class GoogleCloudStorageAdapterClassTest extends Mockery\Adapter\Phpunit\Mockery
 
         $bucket->shouldReceive('info')
             ->andReturn([
-                'iamConfiguration' => ['uniformBucketLevelAccess' => ['enabled' => false]]
+                'iamConfiguration' => ['uniformBucketLevelAccess' => ['enabled' => false]],
             ]);
 
         $bucket->shouldReceive('object')
@@ -696,7 +696,7 @@ class GoogleCloudStorageAdapterClassTest extends Mockery\Adapter\Phpunit\Mockery
 
         $bucket->shouldReceive('info')
             ->andReturn([
-                'iamConfiguration' => ['uniformBucketLevelAccess' => ['enabled' => false]]
+                'iamConfiguration' => ['uniformBucketLevelAccess' => ['enabled' => false]],
             ]);
 
         $bucket->shouldReceive('object')
@@ -743,7 +743,7 @@ class GoogleCloudStorageAdapterClassTest extends Mockery\Adapter\Phpunit\Mockery
 
         $bucket->shouldReceive('info')
             ->andReturn([
-                'iamConfiguration' => ['uniformBucketLevelAccess' => ['enabled' => false]]
+                'iamConfiguration' => ['uniformBucketLevelAccess' => ['enabled' => false]],
             ]);
 
         $bucket->shouldReceive('object')
@@ -880,7 +880,7 @@ class GoogleCloudStorageAdapterClassTest extends Mockery\Adapter\Phpunit\Mockery
 
         $bucket->shouldReceive('info')
             ->andReturn([
-                'iamConfiguration' => ['uniformBucketLevelAccess' => ['enabled' => false]]
+                'iamConfiguration' => ['uniformBucketLevelAccess' => ['enabled' => false]],
             ]);
 
         $bucket->shouldReceive('object')
@@ -924,7 +924,7 @@ class GoogleCloudStorageAdapterClassTest extends Mockery\Adapter\Phpunit\Mockery
 
         $bucket->shouldReceive('info')
             ->andReturn([
-                'iamConfiguration' => ['uniformBucketLevelAccess' => ['enabled' => false]]
+                'iamConfiguration' => ['uniformBucketLevelAccess' => ['enabled' => false]],
             ]);
 
         $bucket->shouldReceive('object')
@@ -968,7 +968,7 @@ class GoogleCloudStorageAdapterClassTest extends Mockery\Adapter\Phpunit\Mockery
 
         $bucket->shouldReceive('info')
             ->andReturn([
-                'iamConfiguration' => ['uniformBucketLevelAccess' => ['enabled' => false]]
+                'iamConfiguration' => ['uniformBucketLevelAccess' => ['enabled' => false]],
             ]);
 
         $bucket->shouldReceive('object')
@@ -1004,7 +1004,7 @@ class GoogleCloudStorageAdapterClassTest extends Mockery\Adapter\Phpunit\Mockery
 
         $bucket->shouldReceive('info')
             ->andReturn([
-                'iamConfiguration' => ['uniformBucketLevelAccess' => ['enabled' => false]]
+                'iamConfiguration' => ['uniformBucketLevelAccess' => ['enabled' => false]],
             ]);
 
         $bucket->shouldReceive('object')
@@ -1040,7 +1040,7 @@ class GoogleCloudStorageAdapterClassTest extends Mockery\Adapter\Phpunit\Mockery
 
         $bucket->shouldReceive('info')
             ->andReturn([
-                'iamConfiguration' => ['uniformBucketLevelAccess' => ['enabled' => false]]
+                'iamConfiguration' => ['uniformBucketLevelAccess' => ['enabled' => false]],
             ]);
 
         $bucket->shouldReceive('object')

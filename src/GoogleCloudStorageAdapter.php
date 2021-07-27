@@ -129,8 +129,8 @@ class GoogleCloudStorageAdapter extends AbstractAdapter implements CanOverwriteF
 
         $options['name'] = $path;
 
-        if ( ! $this->isDirectory($path)) {
-            if ( ! isset($options['metadata']['contentType'])) {
+        if (! $this->isDirectory($path)) {
+            if (! isset($options['metadata']['contentType'])) {
                 $options['metadata']['contentType'] = Util::guessMimeType($path, $contents);
             }
         }
@@ -243,8 +243,7 @@ class GoogleCloudStorageAdapter extends AbstractAdapter implements CanOverwriteF
         if ($visibility === AdapterInterface::VISIBILITY_PRIVATE) {
             try {
                 $object->acl()->delete('allUsers');
-            }
-            catch (NotFoundException) {
+            } catch (NotFoundException) {
                 // Not actually an exception, no ACL to delete.
             }
         } elseif ($visibility === AdapterInterface::VISIBILITY_PUBLIC) {
