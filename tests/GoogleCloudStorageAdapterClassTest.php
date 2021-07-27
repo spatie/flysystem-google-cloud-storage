@@ -363,6 +363,7 @@ class GoogleCloudStorageAdapterClassTest extends Mockery\Adapter\Phpunit\Mockery
         $bucket = Mockery::mock(Bucket::class);
 
         $storageObject = Mockery::mock(StorageObject::class);
+        $storageObject->shouldReceive('exists')->times(3)->andReturn(true);
         $storageObject->shouldReceive('delete')
             ->times(3);
         $storageObject->shouldReceive('name')
@@ -377,18 +378,23 @@ class GoogleCloudStorageAdapterClassTest extends Mockery\Adapter\Phpunit\Mockery
             ]);
 
         $bucket->shouldReceive('object')
+            ->with('prefix/dir_name/directory1/file1.txt/')
+            ->once()
+            ->andReturn($storageObject);
+
+        $bucket->shouldReceive('object')
             ->with('prefix/dir_name/directory1/file1.txt')
             ->once()
             ->andReturn($storageObject);
 
         $bucket->shouldReceive('object')
             ->with('prefix/dir_name/directory1/')
-            ->once()
+            ->twice()
             ->andReturn($storageObject);
 
         $bucket->shouldReceive('object')
             ->with('prefix/dir_name/')
-            ->once()
+            ->twice()
             ->andReturn($storageObject);
 
         $bucket->shouldReceive('objects')
@@ -409,6 +415,7 @@ class GoogleCloudStorageAdapterClassTest extends Mockery\Adapter\Phpunit\Mockery
         $bucket = Mockery::mock(Bucket::class);
 
         $storageObject = Mockery::mock(StorageObject::class);
+        $storageObject->shouldReceive('exists')->times(3)->andReturn(true);
         $storageObject->shouldReceive('delete')
             ->times(3);
 
@@ -424,18 +431,23 @@ class GoogleCloudStorageAdapterClassTest extends Mockery\Adapter\Phpunit\Mockery
             ]);
 
         $bucket->shouldReceive('object')
+            ->with('prefix/dir_name/directory1/file1.txt/')
+            ->once()
+            ->andReturn($storageObject);
+
+        $bucket->shouldReceive('object')
             ->with('prefix/dir_name/directory1/file1.txt')
             ->once()
             ->andReturn($storageObject);
 
         $bucket->shouldReceive('object')
             ->with('prefix/dir_name/directory1/')
-            ->once()
+            ->twice()
             ->andReturn($storageObject);
 
         $bucket->shouldReceive('object')
             ->with('prefix/dir_name/')
-            ->once()
+            ->twice()
             ->andReturn($storageObject);
 
         $bucket->shouldReceive('objects')
@@ -538,8 +550,13 @@ class GoogleCloudStorageAdapterClassTest extends Mockery\Adapter\Phpunit\Mockery
 
         $storageObject = Mockery::mock(StorageObject::class);
         $storageObject->shouldReceive('exists')
+            ->twice()
+            ->andReturn(false);
+
+        $bucket->shouldReceive('object')
+            ->with('prefix/file.txt/')
             ->once()
-            ->andReturn(true);
+            ->andReturn($storageObject);
 
         $bucket->shouldReceive('object')
             ->with('prefix/file.txt')

@@ -9,11 +9,12 @@ use Google\Cloud\Storage\StorageClient;
 use Google\Cloud\Storage\StorageObject;
 use GuzzleHttp\Psr7\StreamWrapper;
 use League\Flysystem\Adapter\AbstractAdapter;
+use League\Flysystem\Adapter\CanOverwriteFiles;
 use League\Flysystem\AdapterInterface;
 use League\Flysystem\Config;
 use League\Flysystem\Util;
 
-class GoogleCloudStorageAdapter extends AbstractAdapter
+class GoogleCloudStorageAdapter extends AbstractAdapter implements CanOverwriteFiles
 {
     public const STORAGE_API_URI_DEFAULT = 'https://storage.googleapis.com';
 
@@ -93,6 +94,14 @@ class GoogleCloudStorageAdapter extends AbstractAdapter
 
         if ($metadata = $config->get('metadata')) {
             $options['metadata'] = $metadata;
+        }
+
+        if ($chunkSize = $config->get('chunkSize')) {
+            $options['chunkSize'] = $chunkSize;
+        }
+
+        if ($uploadProgressCallback = $config->get('uploadProgressCallback')) {
+            $options['uploadProgressCallback'] = $uploadProgressCallback;
         }
 
         return $options;
@@ -193,9 +202,11 @@ class GoogleCloudStorageAdapter extends AbstractAdapter
             }
         }
 
-        // Execute deletion for each object.
+        // Execute deletion for each object (if it still exists at this point).
         foreach ($filtered_objects as $object) {
-            $this->delete($object['path']);
+            if ($this->has($object['path'])) {
+                $this->delete($object['path']);
+            }
         }
 
         return true;
@@ -216,7 +227,12 @@ class GoogleCloudStorageAdapter extends AbstractAdapter
         $object = $this->getObject($path);
 
         if ($visibility === AdapterInterface::VISIBILITY_PRIVATE) {
-            $object->acl()->delete('allUsers');
+            try {
+                $object->acl()->delete('allUsers');
+            }
+            catch (NotFoundException) {
+                // Not actually an exception, no ACL to delete.
+            }
         } elseif ($visibility === AdapterInterface::VISIBILITY_PUBLIC) {
             $object->acl()->add('allUsers', Acl::ROLE_READER);
         }
@@ -229,7 +245,14 @@ class GoogleCloudStorageAdapter extends AbstractAdapter
 
     public function has($path): bool
     {
-        return $this->getObject($path)->exists();
+        // Path has a `/` suffix. We are definitely checking for a directory.
+        if (substr($path, -1) === '/') {
+            return $this->getObject($path)->exists();
+        }
+
+        // Path might be directory with missing `/` suffix. Add `/` suffix first to check.
+        return $this->getObject($path . '/')->exists()
+            || $this->getObject($path)->exists();
     }
 
     public function read($path): array
@@ -331,10 +354,12 @@ class GoogleCloudStorageAdapter extends AbstractAdapter
         array $options = []
     ): string {
         $object = $this->getObject($path);
+
         $signedUrl = $object->signedUrl($expiration, $options);
 
         if ($this->getStorageApiUri() !== self::STORAGE_API_URI_DEFAULT) {
             [$url, $params] = explode('?', $signedUrl, 2);
+
             $signedUrl = $this->getUrl($path) . '?' . $params;
         }
 
