@@ -1,8 +1,8 @@
 # Flysystem adapter for Google Cloud Storage
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/flysystem-google-cloud-storage.svg?style=flat-square)](https://packagist.org/packages/spatie/flysystem-google-cloud-storage)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/spatie/flysystem-google-cloud-storage/run-tests?label=tests)](https://github.com/spatie/flysystem-google-cloud-storage/actions?query=workflow%3ATests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/spatie/flysystem-google-cloud-storage/Check%20&%20fix%20styling?label=code%20style)](https://github.com/spatie/flysystem-google-cloud-storage/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
+[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/spatie/flysystem-google-cloud-storage/run-tests/main?label=tests)](https://github.com/spatie/flysystem-google-cloud-storage/actions?query=workflow%3ATests+branch%3Amain)
+[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/spatie/flysystem-google-cloud-storage/Check%20&%20fix%20styling/main?label=code%20style)](https://github.com/spatie/flysystem-google-cloud-storage/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/flysystem-google-cloud-storage.svg?style=flat-square)](https://packagist.org/packages/spatie/flysystem-google-cloud-storage)
 
 ---
