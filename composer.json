@@ -1,16 +1,16 @@
 {
-    "name": "vendor_slug/package_slug",
-    "description": ":package_description",
+    "name": "spatie/flysystem-google-cloud-storage",
+    "description": "Flysystem adapter for Google Cloud Storage",
     "keywords": [
-        ":vendor_name",
-        "package_slug"
+        "spatie",
+        "flysystem-google-cloud-storage"
     ],
-    "homepage": "https://github.com/vendor_slug/package_slug",
+    "homepage": "https://github.com/spatie/flysystem-google-cloud-storage",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "Alex Vanderbist",
+            "email": "alex@spatie.be",
             "role": "Developer"
         }
     ],
@@ -25,12 +25,12 @@
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src"
+            "Spatie\\GoogleCloudStorageAdapter\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests"
+            "Spatie\\GoogleCloudStorageAdapter\\Tests\\": "tests"
         }
     },
     "scripts": {

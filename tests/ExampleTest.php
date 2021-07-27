@@ -1,6 +1,6 @@
 <?php
 
-namespace VendorName\Skeleton\Tests;
+namespace Spatie\GoogleCloudStorageAdapter\Tests;
 
 use PHPUnit\Framework\TestCase;
 
