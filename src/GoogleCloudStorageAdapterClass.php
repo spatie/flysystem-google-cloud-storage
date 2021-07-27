@@ -15,7 +15,7 @@ use League\Flysystem\Util;
 
 class GoogleCloudStorageAdapterClass extends AbstractAdapter
 {
-    const STORAGE_API_URI_DEFAULT = 'https://storage.googleapis.com';
+    public const STORAGE_API_URI_DEFAULT = 'https://storage.googleapis.com';
 
     protected StorageClient $storageClient;
 
@@ -139,7 +139,7 @@ class GoogleCloudStorageAdapterClass extends AbstractAdapter
 
     public function rename($path, $newpath): bool
     {
-        if (!$this->copy($path, $newpath)) {
+        if (! $this->copy($path, $newpath)) {
             return false;
         }
 
@@ -327,7 +327,7 @@ class GoogleCloudStorageAdapterClass extends AbstractAdapter
 
     public function getTemporaryUrl(
         string $path,
-        \DateTimeInterface|int $expiration,
+        \DateTimeInterface | int $expiration,
         array $options = []
     ): string {
         $object = $this->getObject($path);
@@ -354,7 +354,6 @@ class GoogleCloudStorageAdapterClass extends AbstractAdapter
             return AdapterInterface::VISIBILITY_PRIVATE;
         }
     }
-
 
     protected function getObject(string $path): StorageObject
     {
