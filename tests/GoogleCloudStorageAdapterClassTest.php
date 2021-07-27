@@ -2,7 +2,6 @@
 
 namespace Spatie\GoogleCloudStorageAdapter\Tests;
 
-use Spatie\GoogleCloudStorageAdapter\GoogleCloudStorageAdapter;
 use Google\Cloud\Storage\Acl;
 use Google\Cloud\Storage\Bucket;
 use Google\Cloud\Storage\StorageClient;
@@ -11,6 +10,7 @@ use League\Flysystem\AdapterInterface;
 use League\Flysystem\Config;
 use Mockery;
 use Psr\Http\Message\StreamInterface;
+use Spatie\GoogleCloudStorageAdapter\GoogleCloudStorageAdapter;
 
 class GoogleCloudStorageAdapterClassTest extends Mockery\Adapter\Phpunit\MockeryTestCase
 {
@@ -393,7 +393,7 @@ class GoogleCloudStorageAdapterClassTest extends Mockery\Adapter\Phpunit\Mockery
 
         $bucket->shouldReceive('objects')
             ->with([
-                'prefix' => 'prefix/dir_name/'
+                'prefix' => 'prefix/dir_name/',
             ])->once()
             ->andReturn([$storageObject]);
 
@@ -440,7 +440,7 @@ class GoogleCloudStorageAdapterClassTest extends Mockery\Adapter\Phpunit\Mockery
 
         $bucket->shouldReceive('objects')
             ->with([
-                'prefix' => 'prefix/dir_name/'
+                'prefix' => 'prefix/dir_name/',
             ])->once()
             ->andReturn([$storageObject]);
 
