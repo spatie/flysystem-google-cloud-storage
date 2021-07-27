@@ -46,9 +46,15 @@ class GoogleCloudStorageAdapterClassTest extends Mockery\Adapter\Phpunit\Mockery
         $storageObject->shouldReceive('info')
             ->once()
             ->andReturn([
+                'iamConfiguration' => ['uniformBucketLevelAccess' => ['enabled' => false]],
                 'updated' => '2016-09-26T14:44:42+00:00',
                 'contentType' => 'text/plain',
                 'size' => 5,
+            ]);
+
+        $bucket->shouldReceive('info')
+            ->andReturn([
+                'iamConfiguration' => ['uniformBucketLevelAccess' => ['enabled' => false]]
             ]);
 
         $bucket->shouldReceive('upload')
@@ -57,6 +63,7 @@ class GoogleCloudStorageAdapterClassTest extends Mockery\Adapter\Phpunit\Mockery
                 [
                     'name' => 'prefix/file1.txt',
                     'predefinedAcl' => 'projectPrivate',
+                    'metadata' => ['contentType' => 'text/plain']
                 ],
             ])
             ->once()
@@ -96,12 +103,28 @@ class GoogleCloudStorageAdapterClassTest extends Mockery\Adapter\Phpunit\Mockery
                 'size' => 5,
             ]);
 
+        $bucket->shouldReceive('info')
+            ->andReturn([
+                'iamConfiguration' => ['uniformBucketLevelAccess' => ['enabled' => false]]
+            ]);
+
+        $bucket->shouldReceive('info')
+            ->andReturn([
+                'iamConfiguration' => ['uniformBucketLevelAccess' => ['enabled' => false]]
+            ]);
+
+        $bucket->shouldReceive('info')
+            ->andReturn([
+                'iamConfiguration' => ['uniformBucketLevelAccess' => ['enabled' => false]]
+            ]);
+
         $bucket->shouldReceive('upload')
             ->withArgs([
                 'This is the file contents.',
                 [
                     'name' => 'prefix/file1.txt',
                     'predefinedAcl' => 'projectPrivate',
+                    'metadata' => ['contentType' => 'text/plain']
                 ],
             ])
             ->once()
@@ -141,12 +164,18 @@ class GoogleCloudStorageAdapterClassTest extends Mockery\Adapter\Phpunit\Mockery
                 'size' => 5,
             ]);
 
+        $bucket->shouldReceive('info')
+            ->andReturn([
+                'iamConfiguration' => ['uniformBucketLevelAccess' => ['enabled' => false]]
+            ]);
+
         $bucket->shouldReceive('upload')
             ->withArgs([
                 'This is the file contents.',
                 [
                     'name' => 'prefix/file1.txt',
                     'predefinedAcl' => 'publicRead',
+                    'metadata' => ['contentType' => 'text/plain']
                 ],
             ])
             ->once()
@@ -188,12 +217,18 @@ class GoogleCloudStorageAdapterClassTest extends Mockery\Adapter\Phpunit\Mockery
                 'size' => 5,
             ]);
 
+        $bucket->shouldReceive('info')
+            ->andReturn([
+                'iamConfiguration' => ['uniformBucketLevelAccess' => ['enabled' => false]]
+            ]);
+
         $bucket->shouldReceive('upload')
             ->withArgs([
                 $stream,
                 [
                     'name' => 'prefix/file1.txt',
                     'predefinedAcl' => 'projectPrivate',
+                    'metadata' => ['contentType' => 'text/plain']
                 ],
             ])
             ->once()
@@ -211,6 +246,61 @@ class GoogleCloudStorageAdapterClassTest extends Mockery\Adapter\Phpunit\Mockery
             'type' => 'file',
             'dirname' => '',
             'path' => 'file1.txt',
+            'timestamp' => 1474901082,
+            'mimetype' => 'text/plain',
+            'size' => 5,
+        ];
+        $this->assertEquals($expected, $data);
+    }
+
+    /** @test */
+    public function test_write_with_predefined_mime_type()
+    {
+        $bucket = Mockery::mock(Bucket::class);
+
+        $storageObject = Mockery::mock(StorageObject::class);
+        $storageObject->shouldReceive('name')
+            ->once()
+            ->andReturn('prefix/file1');
+
+        $storageObject->shouldReceive('info')
+            ->once()
+            ->andReturn([
+                'updated' => '2016-09-26T14:44:42+00:00',
+                'contentType' => 'text/plain',
+                'size' => 5,
+            ]);
+
+        $bucket->shouldReceive('info')
+            ->andReturn([
+                'iamConfiguration' => ['uniformBucketLevelAccess' => ['enabled' => false]]
+            ]);
+
+        $bucket->shouldReceive('upload')
+            ->withArgs([
+                'This is the file contents.',
+                [
+                    'predefinedAcl' => 'projectPrivate',
+                    'name' => 'prefix/file1',
+                    'mimetype' => 'text/plain',
+                    'metadata' => [
+                        'contentType' => 'text/plain',
+                    ]
+                ],
+            ])
+            ->once()
+            ->andReturn($storageObject);
+
+        $storageClient = Mockery::mock(StorageClient::class);
+
+        $adapter = new GoogleCloudStorageAdapter($storageClient, $bucket, 'prefix');
+
+        $data = $adapter->write('file1', 'This is the file contents.', new Config(['mimetype' => 'text/plain']));
+
+        $expected = [
+            'type' => 'file',
+            'dirname' => '',
+            'path' => 'file1',
             'timestamp' => 1474901082,
             'mimetype' => 'text/plain',
             'size' => 5,
@@ -377,6 +467,11 @@ class GoogleCloudStorageAdapterClassTest extends Mockery\Adapter\Phpunit\Mockery
                 'size' => 5,
             ]);
 
+        $bucket->shouldReceive('info')
+            ->andReturn([
+                'iamConfiguration' => ['uniformBucketLevelAccess' => ['enabled' => false]]
+            ]);
+
         $bucket->shouldReceive('object')
             ->with('prefix/dir_name/directory1/file1.txt/')
             ->once()
@@ -428,6 +523,11 @@ class GoogleCloudStorageAdapterClassTest extends Mockery\Adapter\Phpunit\Mockery
                 'updated' => '2016-09-26T14:44:42+00:00',
                 'contentType' => 'text/plain',
                 'size' => 5,
+            ]);
+
+        $bucket->shouldReceive('info')
+            ->andReturn([
+                'iamConfiguration' => ['uniformBucketLevelAccess' => ['enabled' => false]]
             ]);
 
         $bucket->shouldReceive('object')
@@ -528,6 +628,11 @@ class GoogleCloudStorageAdapterClassTest extends Mockery\Adapter\Phpunit\Mockery
                 'size' => 5,
             ]);
 
+        $bucket->shouldReceive('info')
+            ->andReturn([
+                'iamConfiguration' => ['uniformBucketLevelAccess' => ['enabled' => false]]
+            ]);
+
         $bucket->shouldReceive('object')
             ->with('prefix/file1.txt')
             ->once()
@@ -589,6 +694,11 @@ class GoogleCloudStorageAdapterClassTest extends Mockery\Adapter\Phpunit\Mockery
                 'size' => 5,
             ]);
 
+        $bucket->shouldReceive('info')
+            ->andReturn([
+                'iamConfiguration' => ['uniformBucketLevelAccess' => ['enabled' => false]]
+            ]);
+
         $bucket->shouldReceive('object')
             ->with('prefix/file.txt')
             ->once()
@@ -629,6 +739,11 @@ class GoogleCloudStorageAdapterClassTest extends Mockery\Adapter\Phpunit\Mockery
                 'updated' => '2016-09-26T14:44:42+00:00',
                 'contentType' => 'text/plain',
                 'size' => 5,
+            ]);
+
+        $bucket->shouldReceive('info')
+            ->andReturn([
+                'iamConfiguration' => ['uniformBucketLevelAccess' => ['enabled' => false]]
             ]);
 
         $bucket->shouldReceive('object')
@@ -763,6 +878,11 @@ class GoogleCloudStorageAdapterClassTest extends Mockery\Adapter\Phpunit\Mockery
                 'size' => 5,
             ]);
 
+        $bucket->shouldReceive('info')
+            ->andReturn([
+                'iamConfiguration' => ['uniformBucketLevelAccess' => ['enabled' => false]]
+            ]);
+
         $bucket->shouldReceive('object')
             ->with('prefix/file.txt')
             ->once()
@@ -800,6 +920,11 @@ class GoogleCloudStorageAdapterClassTest extends Mockery\Adapter\Phpunit\Mockery
                 'updated' => '2016-09-26T14:44:42+00:00',
                 'contentType' => 'application/octet-stream',
                 'size' => 0,
+            ]);
+
+        $bucket->shouldReceive('info')
+            ->andReturn([
+                'iamConfiguration' => ['uniformBucketLevelAccess' => ['enabled' => false]]
             ]);
 
         $bucket->shouldReceive('object')
@@ -841,6 +966,11 @@ class GoogleCloudStorageAdapterClassTest extends Mockery\Adapter\Phpunit\Mockery
                 'size' => 5,
             ]);
 
+        $bucket->shouldReceive('info')
+            ->andReturn([
+                'iamConfiguration' => ['uniformBucketLevelAccess' => ['enabled' => false]]
+            ]);
+
         $bucket->shouldReceive('object')
             ->with('prefix/file.txt')
             ->once()
@@ -872,6 +1002,11 @@ class GoogleCloudStorageAdapterClassTest extends Mockery\Adapter\Phpunit\Mockery
                 'size' => 5,
             ]);
 
+        $bucket->shouldReceive('info')
+            ->andReturn([
+                'iamConfiguration' => ['uniformBucketLevelAccess' => ['enabled' => false]]
+            ]);
+
         $bucket->shouldReceive('object')
             ->with('prefix/file.txt')
             ->once()
@@ -901,6 +1036,11 @@ class GoogleCloudStorageAdapterClassTest extends Mockery\Adapter\Phpunit\Mockery
                 'updated' => '2016-09-26T14:44:42+00:00',
                 'contentType' => 'text/plain',
                 'size' => 5,
+            ]);
+
+        $bucket->shouldReceive('info')
+            ->andReturn([
+                'iamConfiguration' => ['uniformBucketLevelAccess' => ['enabled' => false]]
             ]);
 
         $bucket->shouldReceive('object')

@@ -84,12 +84,19 @@ class GoogleCloudStorageAdapter extends AbstractAdapter implements CanOverwriteF
     {
         $options = [];
 
-        if ($visibility = $config->get('visibility')) {
-            $options['predefinedAcl'] = $this->getPredefinedAclForVisibility($visibility);
-        } else {
-            // if a file is created without an acl, it isn't accessible via the console
-            // we therefore default to private
-            $options['predefinedAcl'] = $this->getPredefinedAclForVisibility(AdapterInterface::VISIBILITY_PRIVATE);
+        if (empty($this->bucket->info()['iamConfiguration']['uniformBucketLevelAccess']['enabled'])) {
+            if ($visibility = $config->get('visibility')) {
+                $options['predefinedAcl'] = $this->getPredefinedAclForVisibility($visibility);
+            } else {
+                // if a file is created without an acl, it isn't accessible via the console
+                // we therefore default to private
+                $options['predefinedAcl'] = $this->getPredefinedAclForVisibility(AdapterInterface::VISIBILITY_PRIVATE);
+            }
+        }
+
+        if ($mimetype = $config->get('mimetype')) {
+            $options['mimetype'] = $mimetype;
+            $options['metadata']['contentType'] = $mimetype;
         }
 
         if ($metadata = $config->get('metadata')) {
@@ -119,7 +126,14 @@ class GoogleCloudStorageAdapter extends AbstractAdapter implements CanOverwriteF
         $path = $this->applyPathPrefix($path);
 
         $options = $this->getOptionsFromConfig($config);
+
         $options['name'] = $path;
+
+        if ( ! $this->isDirectory($path)) {
+            if ( ! isset($options['metadata']['contentType'])) {
+                $options['metadata']['contentType'] = Util::guessMimeType($path, $contents);
+            }
+        }
 
         $object = $this->bucket->upload($contents, $options);
 
@@ -131,7 +145,7 @@ class GoogleCloudStorageAdapter extends AbstractAdapter implements CanOverwriteF
         $name = $this->removePathPrefix($object->name());
         $info = $object->info();
 
-        $isDirectory = substr($name, -1) === '/';
+        $isDirectory = $this->isDirectory($name);
         if ($isDirectory) {
             $name = rtrim($name, '/');
         }
@@ -246,7 +260,7 @@ class GoogleCloudStorageAdapter extends AbstractAdapter implements CanOverwriteF
     public function has($path): bool
     {
         // Path has a `/` suffix. We are definitely checking for a directory.
-        if (substr($path, -1) === '/') {
+        if ($this->isDirectory($path)) {
             return $this->getObject($path)->exists();
         }
 
@@ -390,5 +404,10 @@ class GoogleCloudStorageAdapter extends AbstractAdapter implements CanOverwriteF
     protected function getPredefinedAclForVisibility(string $visibility): string
     {
         return $visibility === AdapterInterface::VISIBILITY_PUBLIC ? 'publicRead' : 'projectPrivate';
+    }
+
+    protected function isDirectory(string $path): bool
+    {
+        return substr($path, -1) === '/';
     }
 }
