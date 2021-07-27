@@ -7,12 +7,9 @@
 
 ---
 
-This is where your description should go. Try and limit it to a paragraph or two. Consider adding a small
-example.
-
 Forked
 from [superbalist/flysystem-google-cloud-storage](https://github.com/Superbalist/flysystem-google-cloud-storage)
-. Changes:
+. Changes include:
 
 - PHP 8 only
 - merged random open PRs from Superbalist's package
