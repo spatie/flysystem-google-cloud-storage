@@ -9,7 +9,7 @@
 
 This is where your description should go. Try and limit it to a paragraph or two. Consider adding a small example.
 
-Loosely based on [superbalist/flysystem-google-cloud-storage](https://github.com/Superbalist/flysystem-google-cloud-storage)
+Forked from [superbalist/flysystem-google-cloud-storage](https://github.com/Superbalist/flysystem-google-cloud-storage)
 
 ## Support us
 
