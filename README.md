@@ -5,7 +5,9 @@
 [![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/spatie/flysystem-google-cloud-storage/Check%20&%20fix%20styling/main?label=code%20style)](https://github.com/spatie/flysystem-google-cloud-storage/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/flysystem-google-cloud-storage.svg?style=flat-square)](https://packagist.org/packages/spatie/flysystem-google-cloud-storage)
 
-This package contains a [Google Cloud Storage](https://cloud.google.com/storage) driver for [Flysystem](https://flysystem.thephpleague.com/v2/docs/).
+This package contains a [Google Cloud Storage](https://cloud.google.com/storage) driver for [Flysystem v1](https://flysystem.thephpleague.com). 
+
+(If you need Google Cloud Storage support on Flysystem v2 or above (or Laravel 9), this package is not for you)
 
 ### Notice
 
