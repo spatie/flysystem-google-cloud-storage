@@ -9,6 +9,7 @@ use Google\Cloud\Storage\StorageObject;
 use League\Flysystem\AdapterInterface;
 use League\Flysystem\Config;
 use Mockery;
+use Mockery\MockInterface;
 use Psr\Http\Message\StreamInterface;
 use Spatie\GoogleCloudStorageAdapter\GoogleCloudStorageAdapter;
 
@@ -312,6 +313,7 @@ class GoogleCloudStorageAdapterClassTest extends Mockery\Adapter\Phpunit\Mockery
     public function test_rename()
     {
         $bucket = Mockery::mock(Bucket::class);
+        $this->mockInfoRequest($bucket, uniformAcl: false);
 
         $oldStorageObjectAcl = Mockery::mock(Acl::class);
         $oldStorageObjectAcl->shouldReceive('get')
@@ -350,9 +352,10 @@ class GoogleCloudStorageAdapterClassTest extends Mockery\Adapter\Phpunit\Mockery
     }
 
     /** @test */
-    public function test_copy()
+    public function test_copy_when_file_is_private()
     {
         $bucket = Mockery::mock(Bucket::class);
+        $this->mockInfoRequest($bucket, uniformAcl: false);
 
         $oldStorageObjectAcl = Mockery::mock(Acl::class);
         $oldStorageObjectAcl->shouldReceive('get')
@@ -389,10 +392,39 @@ class GoogleCloudStorageAdapterClassTest extends Mockery\Adapter\Phpunit\Mockery
     }
 
     /** @test */
+    public function test_copy_when_uniform_acl_is_enabled()
+    {
+        $storageClient = Mockery::mock(StorageClient::class);
+        $bucket = Mockery::mock(Bucket::class);
+        $this->mockInfoRequest($bucket, uniformAcl: true);
+
+        $oldStorageObject = Mockery::mock(StorageObject::class);
+        $oldStorageObject->shouldReceive('copy')
+            ->withArgs([
+                $bucket,
+                [
+                    'name' => 'prefix/new_file.txt',
+                    'predefinedAcl' => 'projectPrivate',
+                ],
+            ])
+            ->once();
+
+        $bucket->shouldReceive('object')
+            ->with('prefix/old_file.txt')
+            ->once()
+            ->andReturn($oldStorageObject);
+
+        $adapter = new GoogleCloudStorageAdapter($storageClient, $bucket, 'prefix');
+
+        $adapter->copy('old_file.txt', 'new_file.txt');
+    }
+
+    /** @test */
     public function test_copy_when_original_file_is_public()
     {
         $storageClient = Mockery::mock(StorageClient::class);
         $bucket = Mockery::mock(Bucket::class);
+        $this->mockInfoRequest($bucket, uniformAcl: false);
 
         $oldStorageObjectAcl = Mockery::mock(Acl::class);
         $oldStorageObjectAcl->shouldReceive('get')
@@ -1057,9 +1089,24 @@ class GoogleCloudStorageAdapterClassTest extends Mockery\Adapter\Phpunit\Mockery
     }
 
     /** @test */
+    public function test_get_visibility_when_uniform_acl_is_enabled()
+    {
+        $bucket = Mockery::mock(Bucket::class);
+        $this->mockInfoRequest($bucket, uniformAcl: true);
+
+        $storageClient = Mockery::mock(StorageClient::class);
+
+        $adapter = new GoogleCloudStorageAdapter($storageClient, $bucket, 'prefix');
+
+        $visibility = $adapter->getVisibility('file.txt');
+        $this->assertEquals(['visibility' => AdapterInterface::VISIBILITY_PRIVATE], $visibility);
+    }
+
+    /** @test */
     public function test_get_visibility_when_visibility_is_private()
     {
         $bucket = Mockery::mock(Bucket::class);
+        $this->mockInfoRequest($bucket, uniformAcl: false);
 
         $storageObjectAcl = Mockery::mock(Acl::class);
         $storageObjectAcl->shouldReceive('get')
@@ -1091,6 +1138,7 @@ class GoogleCloudStorageAdapterClassTest extends Mockery\Adapter\Phpunit\Mockery
     public function test_get_visibility_when_visibility_is_public()
     {
         $bucket = Mockery::mock(Bucket::class);
+        $this->mockInfoRequest($bucket, uniformAcl: false);
 
         $storageObjectAcl = Mockery::mock(Acl::class);
         $storageObjectAcl->shouldReceive('get')
@@ -1154,5 +1202,16 @@ class GoogleCloudStorageAdapterClassTest extends Mockery\Adapter\Phpunit\Mockery
         $adapter->setPathPrefix('another-prefix');
         // no bucket name on custom domain
         $this->assertEquals('http://my-domain.com/another-prefix/dir/file.txt', $adapter->getUrl('dir/file.txt'));
+    }
+
+    protected function mockInfoRequest(MockInterface|Bucket $bucket, bool $uniformAcl = true): void
+    {
+        $bucket->shouldReceive('info')->once()->andReturn([
+            'iamConfiguration' => [
+                'uniformBucketLevelAccess' => [
+                    'enabled' => $uniformAcl,
+                ],
+            ],
+        ]);
     }
 }

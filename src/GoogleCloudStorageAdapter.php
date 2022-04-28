@@ -84,7 +84,7 @@ class GoogleCloudStorageAdapter extends AbstractAdapter implements CanOverwriteF
     {
         $options = [];
 
-        if (empty($this->bucket->info()['iamConfiguration']['uniformBucketLevelAccess']['enabled'])) {
+        if (! $this->uniformBucketLevelAccessEnabled()) {
             if ($visibility = $config->get('visibility')) {
                 $options['predefinedAcl'] = $this->getPredefinedAclForVisibility($visibility);
             } else {
@@ -389,6 +389,10 @@ class GoogleCloudStorageAdapter extends AbstractAdapter implements CanOverwriteF
 
     protected function getRawVisibility(string $path): string
     {
+        if ($this->uniformBucketLevelAccessEnabled()) {
+            return AdapterInterface::VISIBILITY_PRIVATE;
+        }
+
         try {
             $acl = $this->getObject($path)->acl()->get(['entity' => 'allUsers']);
 
@@ -416,5 +420,10 @@ class GoogleCloudStorageAdapter extends AbstractAdapter implements CanOverwriteF
     protected function isDirectory(string $path): bool
     {
         return substr($path, -1) === '/';
+    }
+
+    public function uniformBucketLevelAccessEnabled(): bool
+    {
+        return $this->bucket->info()['iamConfiguration']['uniformBucketLevelAccess']['enabled'] ?? false;
     }
 }
