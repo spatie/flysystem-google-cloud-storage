@@ -178,8 +178,12 @@ class GoogleCloudStorageAdapter extends AbstractAdapter implements CanOverwriteF
 
         $options = [
             'name' => $newpath,
-            'predefinedAcl' => $this->getPredefinedAclForVisibility($visibility),
         ];
+
+        if ($visibility) {
+            $options['predefinedAcl'] = $this->getPredefinedAclForVisibility($visibility);
+        }
+
         $this->getObject($path)->copy($this->bucket, $options);
 
         return true;
@@ -387,10 +391,10 @@ class GoogleCloudStorageAdapter extends AbstractAdapter implements CanOverwriteF
         return $signedUrl;
     }
 
-    protected function getRawVisibility(string $path): string
+    protected function getRawVisibility(string $path): ?string
     {
         if ($this->uniformBucketLevelAccessEnabled()) {
-            return AdapterInterface::VISIBILITY_PRIVATE;
+            return null;
         }
 
         try {

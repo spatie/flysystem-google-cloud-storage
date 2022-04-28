@@ -404,7 +404,6 @@ class GoogleCloudStorageAdapterClassTest extends Mockery\Adapter\Phpunit\Mockery
                 $bucket,
                 [
                     'name' => 'prefix/new_file.txt',
-                    'predefinedAcl' => 'projectPrivate',
                 ],
             ])
             ->once();
@@ -1099,7 +1098,7 @@ class GoogleCloudStorageAdapterClassTest extends Mockery\Adapter\Phpunit\Mockery
         $adapter = new GoogleCloudStorageAdapter($storageClient, $bucket, 'prefix');
 
         $visibility = $adapter->getVisibility('file.txt');
-        $this->assertEquals(['visibility' => AdapterInterface::VISIBILITY_PRIVATE], $visibility);
+        $this->assertEquals(['visibility' => null], $visibility);
     }
 
     /** @test */
