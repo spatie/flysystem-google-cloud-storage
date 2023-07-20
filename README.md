@@ -1,6 +1,3 @@
-
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/support-ukraine.svg?t=1" />](https://supportukrainenow.org)
-
 # Flysystem adapter for Google Cloud Storage
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/flysystem-google-cloud-storage.svg?style=flat-square)](https://packagist.org/packages/spatie/flysystem-google-cloud-storage)
