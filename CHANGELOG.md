@@ -2,6 +2,18 @@
 
 All notable changes to `flysystem-google-cloud-storage` will be documented in this file.
 
+## 1.1.2 - 2023-07-20
+
+### What's Changed
+
+- Moved mockery/mockery to the dev dependencies list in composer.json config by @alexandrmazur96 in https://github.com/spatie/flysystem-google-cloud-storage/pull/2
+
+### New Contributors
+
+- @alexandrmazur96 made their first contribution in https://github.com/spatie/flysystem-google-cloud-storage/pull/2
+
+**Full Changelog**: https://github.com/spatie/flysystem-google-cloud-storage/compare/1.1.1...1.1.2
+
 ## 1.1.0 - 2022-04-28
 
 ## What's Changed
