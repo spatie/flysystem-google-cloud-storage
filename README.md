@@ -1,8 +1,8 @@
 # Flysystem adapter for Google Cloud Storage
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/flysystem-google-cloud-storage.svg?style=flat-square)](https://packagist.org/packages/spatie/flysystem-google-cloud-storage)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/spatie/flysystem-google-cloud-storage/Tests/main?label=tests)](https://github.com/spatie/flysystem-google-cloud-storage/actions?query=workflow%3ATests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/spatie/flysystem-google-cloud-storage/Check%20&%20fix%20styling/main?label=code%20style)](https://github.com/spatie/flysystem-google-cloud-storage/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
+[![GitHub Tests Action Status](https://github.com/spatie/flysystem-google-cloud-storage/actions/workflows/run-tests.yml/badge.svg)](https://github.com/spatie/flysystem-google-cloud-storage/actions?query=workflow%3ATests+branch%3Amain)
+[![GitHub Code Style Action Status](https://github.com/spatie/flysystem-google-cloud-storage/actions/workflows/php-cs-fixer.yml/badge.svg)](https://github.com/spatie/flysystem-google-cloud-storage/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/flysystem-google-cloud-storage.svg?style=flat-square)](https://packagist.org/packages/spatie/flysystem-google-cloud-storage)
 
 This package contains a [Google Cloud Storage](https://cloud.google.com/storage) driver for [Flysystem v1](https://flysystem.thephpleague.com). 
