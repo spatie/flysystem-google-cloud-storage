@@ -19,7 +19,7 @@ This package is a fork from [superbalist/flysystem-google-cloud-storage](https:/
 
 ## Support us
 
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/flysystem-google-cloud-storage.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/flysystem-google-cloud-storage)
+[<img src="https://spatie.be/github-ad-image/flysystem-google-cloud-storage.jpg" width="419px" />](https://spatie.be/github-ad-click/flysystem-google-cloud-storage)
 
 We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source)
 . You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
