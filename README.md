@@ -1,5 +1,15 @@
 # Flysystem adapter for Google Cloud Storage
 
+## Deprecated: use the official Flysystem adapter
+
+This package is deprecated and is no longer maintained. Use the official [`league/flysystem-google-cloud-storage`](https://github.com/thephpleague/flysystem-google-cloud-storage) adapter for Flysystem 3 instead.
+
+This legacy adapter requires Flysystem 1. All Flysystem 1 releases are affected by [GHSA-cxf4-7mrp-vvpr](https://github.com/advisories/GHSA-cxf4-7mrp-vvpr); the first patched Flysystem release is **3.35.3**. When migrating, require `league/flysystem:^3.35.3` (or a newer compatible patched Flysystem 3 release) alongside the official adapter. Installing the official adapter alone does not guarantee that your lock file contains a patched Flysystem version. Keep Composer's security blocking enabled.
+
+**This is not a drop-in replacement.** You must migrate from Flysystem 1 to Flysystem 3, update the adapter namespace and construction, and adapt filesystem calls and application integrations. See the [Flysystem upgrade guide](https://flysystem.thephpleague.com/docs/upgrade-from-1.x/) and the [official Google Cloud Storage adapter documentation](https://flysystem.thephpleague.com/docs/adapter/google-cloud-storage/). This package's implementation and dependency constraints remain unchanged; upgrading this package does not migrate your application or fix its Flysystem 1 dependency.
+
+The documentation below describes the legacy adapter for existing installations, not a recommendation for new projects.
+
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/flysystem-google-cloud-storage.svg?style=flat-square)](https://packagist.org/packages/spatie/flysystem-google-cloud-storage)
 [![GitHub Tests Action Status](https://github.com/spatie/flysystem-google-cloud-storage/actions/workflows/run-tests.yml/badge.svg)](https://github.com/spatie/flysystem-google-cloud-storage/actions?query=workflow%3ATests+branch%3Amain)
 [![GitHub Code Style Action Status](https://github.com/spatie/flysystem-google-cloud-storage/actions/workflows/php-cs-fixer.yml/badge.svg)](https://github.com/spatie/flysystem-google-cloud-storage/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
@@ -28,9 +38,9 @@ We highly appreciate you sending us a postcard from your hometown, mentioning wh
 using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received
 postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
 
-## Installation
+## Legacy installation
 
-You can install the package via composer:
+For existing Flysystem 1 applications only (see the deprecation notice above):
 
 ```bash
 composer require spatie/flysystem-google-cloud-storage

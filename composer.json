@@ -1,6 +1,7 @@
 {
     "name": "spatie/flysystem-google-cloud-storage",
     "description": "Flysystem adapter for Google Cloud Storage",
+    "abandoned": "league/flysystem-google-cloud-storage",
     "keywords": [
         "spatie",
         "flysystem-google-cloud-storage"
